@@ -1,18 +1,35 @@
-Instalar Template de Typescript do React: `create-react-app primeiro-projeto-react --template=typescript`
 
-Instalar o React-Router-DOM: `yarn add react-router-dom`
+## 📚 Instalação e Configuração das Bibliotecas Front-End
 
-Instalar os tipos do React-Router-DOM: `yarn add @types/react-router-dom`
+**Instalar Template de Typescript do React:** `create-react-app primeiro-projeto-react --template=typescript`
 
-Instalar o Styled-Components: `yarn add styled-components`
+**Instalar o React-Router-DOM:** `yarn add react-router-dom`
 
-Instalar os tipos do Styled-Components: `yarn add @types/styled-components`
+**Instalar os tipos do React-Router-DOM:** `yarn add @types/react-router-dom`
 
-Instalar bilbioteca de cores: `yarn add polished`
+**Instalar o Styled-Components:** `yarn add styled-components`
 
-Instalar React-Icons: `yarn add react-icons`
+**Instalar os tipos do Styled-Components:** `yarn add @types/styled-components`
 
-Excluir os arquivos que não vamos utilizar
+**Instalar bilbioteca de cores:** `yarn add polished`
+
+**Instalar React-Icons:** `yarn add react-icons`
+
+## Limpar estrutura do Template
+
+Vamos fazer algumas alterações em arquivos do template que não vamos utilizar, ou que vamos recriar depois.
+
+- Excluir Todos os arquivos .css
+- Na pasta 'public' deixar apenas o index.html
+- Excluir o Readme.md
+- Excluir o App.test.tsx
+- Excluir o logo.svg
+- Excluir o serviceWorker.ts
+- Excluir o setupTests.ts
+- Abrir os arquivos 'index.tsx', App.tsx' e 'index.html' e remover as linhas que chamavam os arquivos que excluímos
+
+# React-Scripts
+O React-Scripts é um dependência que já vem instalada com o React-App e dentro dela já vem tudo configurado do Babel, Webpack (já tem importação de imagens e estilos também ).Não vamos precisar configurar isso na mão.
 
 "scripts": {
 "start": "react-scripts start",
@@ -21,9 +38,9 @@ Excluir os arquivos que não vamos utilizar
 "eject": "react-scripts eject"
 },
 
-O React-Scripts é um dependência que já vem instalada com o React-App e dentro dela já vem tudo configurado do Babel, Webpack (já tem importação de imagens e estilos também ).Não vamos precisar configurar isso na mão.
+# React-DOM
 
-No arquivo index.html temos a div root onde todo código React vai ser injetado dentro dessa div.
+No arquivo index.html temos a div 'root' onde todo código React vai ser injetado dentro dessa div.
 
 No src temos o arquivo index.tsx que utiliza o para renderizar nossa aplicação dentro de um elemento da DOM, no caso a div 'root'.
 
@@ -31,6 +48,8 @@ No src temos o arquivo index.tsx que utiliza o para renderizar nossa aplicação
 import ReactDOM from "react-dom";
 document.getElementById("root");
 ```
+
+# App
 
 O App.tsx é o arquivo principal da aplicação.
 
