@@ -1,44 +1,162 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Instalar Template de Typescript do React: `create-react-app primeiro-projeto-react --template=typescript`
 
-## Available Scripts
+Instalar o React-Router-DOM: `yarn add react-router-dom`
 
-In the project directory, you can run:
+Instalar os tipos do React-Router-DOM: `yarn add @types/react-router-dom`
 
-### `yarn start`
+Instalar o Styled-Components: `yarn add styled-components`
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Instalar os tipos do Styled-Components: `yarn add @types/styled-components`
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+Instalar bilbioteca de cores: `yarn add polished`
 
-### `yarn test`
+Instalar React-Icons: `yarn add react-icons`
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Excluir os arquivos que não vamos utilizar
 
-### `yarn build`
+"scripts": {
+"start": "react-scripts start",
+"build": "react-scripts build",
+"test": "react-scripts test",
+"eject": "react-scripts eject"
+},
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+O React-Scripts é um dependência que já vem instalada com o React-App e dentro dela já vem tudo configurado do Babel, Webpack (já tem importação de imagens e estilos também ).Não vamos precisar configurar isso na mão.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+No arquivo index.html temos a div root onde todo código React vai ser injetado dentro dessa div.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+No src temos o arquivo index.tsx que utiliza o para renderizar nossa aplicação dentro de um elemento da DOM, no caso a div 'root'.
 
-### `yarn eject`
+```tsx
+import ReactDOM from "react-dom";
+document.getElementById("root");
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+O App.tsx é o arquivo principal da aplicação.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+No React, sempre escrevemos componentes no formato de função, ou seja, a variável que recebe o componente precisa ser com a tipagem `React.FC`.
+A função é escrita assim normalmente:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```tsx
+function App() {
+  return <h1>Hello World!</h1>;
+}
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Mas setando sua tipagem como um "Function Component do React" (React.FC) ela ficará assim:
 
-## Learn More
+```tsx
+const App: React.FC = () => <Routes />;
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Lembrando que componentes, sempre escrevemos com letra maiúscula.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+# Rotas
+
+Tudo no react são componentes até as rotas.
+No arquivo de rotas, vamos utilizar um component padrão do React chamado Route. Ele tem algumas propriedades (para visualizar basta clicar na tag do componente e pressionar ctrl + espaço).
+
+A primeira propriedade que vamos utilizar é o path, que é o endereço que vamos acessar a primeira página, neste caso, o Dashboard. A outra propriedade será o componente que o usuário verá na tela quando ele acessar esse endereço.
+
+```tsx
+const Routes: React.FC = () => (
+  <Switch>
+    <Route path="/" component={Dashboard} />
+  </Switch>
+);
+```
+
+Utilizando o React-Router-DOM, temos alguns tipos de rotas. Nessa aplicação usaremos o `BrowserRouter`. Ele funciona como um endereço no browser, permite que eu digite a entidade na URL para acessar a rota correspondente.
+
+Além disso, nossas rotas precisam ter o Switch que permite que apenas uma das rotas seja exibida, não as duas ao mesmo tempo.
+
+# Estilos
+
+Os arquivos .css no React, sempre acabam sendo globais e impactam toda a aplicação. Para resolver isso temos o Styled Components. Ele vai isolar o css para seu respectivo component, assim esse estilo não vai afetar no restante da aplicação (a menos que seja necessário). O estilo agora do componente será .ts e agora vamos criar componentes estilizados.
+
+Aqui vamos criar um componente estilizado Title
+
+```ts
+import styled from "styled-components";
+
+export const Title = styled.h1`
+  font-size: 48px;
+  color: #3a3a3a;
+`;
+```
+
+E vamos importar ele no dashboard e aplicar em volta do nosso título:
+
+```tsx
+import React from "react";
+import { Title } from "./styles";
+
+const Dashboard: React.FC = () => {
+  return <Title> Explore repositórios no Github</Title>;
+};
+
+export default Dashboard;
+```
+
+## Estilo Global
+
+Também precisamos setar alguns estilos que utilizaremos em toda a aplicação, chamamos de estilo global. Na pasta 'src' vamos criar uma pasta 'styles' e um arquivo 'global.ts'. Vamos importar do 'Styled-Components' o método 'createGlobalStyle'
+
+```ts
+import { createGlobalStyle } from "styled-components";
+import githubBackground from "../assets/github.svg";
+
+export default createGlobalStyle`
+
+*{
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    box-sizing: border-box;
+}
+body{
+    background: #F0F0F5 url(${githubBackground}) no-repeat 70% top;
+    -webkit-font-smoothing: antialiased;
+}
+
+body , input , button {
+    font: 16px Roboto, sans-serif;
+}
+
+#root {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+button{
+    cursor: pointer;
+}
+
+`;
+```
+
+# CSS Tips
+
+Quando eu tenho um elemento precedido do mesmo elemento (ex: listas com <li> ou <a>) e eu quiser colocar um espaçamento entre eles, faço da seguinte forma:
+
+```css
+   a + a {
+      margin-top: 16px;
+    }
+    ``
+```
+
+Caso eu esteja usando o encadeamento de estilos, posso substituir o primeiro elemento pelo &:
+
+```css
+  a {
+    background: #fff;
+    border-radius: 5px;
+    width: 100%;
+
+    & + a {
+      margin-top: 16px;
+    }
+
+```
