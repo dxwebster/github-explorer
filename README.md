@@ -138,7 +138,7 @@ button{
 
 # CSS Tips
 
-Quando eu tenho um elemento precedido do mesmo elemento (ex: listas com <li> ou <a>) e eu quiser colocar um espaçamento entre eles, faço da seguinte forma:
+Quando eu tenho um elemento precedido do mesmo elemento (ex: listas com `<li>` ou `<a>`) e eu quiser colocar um espaçamento entre eles, faço da seguinte forma:
 
 ```css
    a + a {
