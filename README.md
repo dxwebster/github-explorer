@@ -1,4 +1,3 @@
-
 ## 📚 Instalação e Configuração das Bibliotecas Front-End
 
 **Instalar Template de Typescript do React:** `create-react-app primeiro-projeto-react --template=typescript`
@@ -29,6 +28,7 @@ Vamos fazer algumas alterações em arquivos do template que não vamos utilizar
 - Abrir os arquivos 'index.tsx', App.tsx' e 'index.html' e remover as linhas que chamavam os arquivos que excluímos
 
 # React-Scripts
+
 O React-Scripts é um dependência que já vem instalada com o React-App e dentro dela já vem tudo configurado do Babel, Webpack (já tem importação de imagens e estilos também ).Não vamos precisar configurar isso na mão.
 
 "scripts": {
