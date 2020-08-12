@@ -205,13 +205,13 @@ Vamos importar a api em todas as páginas da nossa aplicação, nesse caso no Da
 
 Agora criaremos as funções para busca de repositórios e adição deles na lista. A lógica será o seguinte:
 
-- Ter acesso ao valor que foi digitado dentro do input de busca
+- Acessar o valor que foi digitado dentro do input de busca
 - Consumir a API do Github
-- Salvar novo repositório no estado
+- Salvar novo repositório
 
-## Ter acesso ao valor que foi digitado dentro do input de busca
+## Acessar o valor que foi digitado dentro do input de busca
 
-Existem diversas formas de armazenar o valor do input, mas aqui usaremos o 'useState()'. A primeira variável é o estado em si, a segunda é uma função que usaremos quando quisermos alterá-lo, e dentro do 'useState()' é o estado inicial, ou seja, vazio.
+Existem diversas formas de armazenar o valor do input, mas aqui usaremos o 'useState()'.O primeiro parâmetro é o novo repositório, o segundo parâmetro é uma função que usaremos quando quisermos alterá-lo, e dentro do 'useState()' é o estado inicial, ou seja, vazio pois não temos nenhum novo repositório.
 
 ```tsx
 const [newRepo, setNewRepo] = useState('');
@@ -250,7 +250,7 @@ Dentro da função handleAddRepository(), teremos nossa api de busca de reposit�
 const response = await api.get<Repository>(`repos/${newRepo}`);
 ```
 
-Como esse resultado é um objeto, ou seja, não é do tipo padrão (string, boolean, numer), precisamos informar qual o tipo dele por meio de uma interface.
+Como esse resultado é um objeto, ou seja, não é do tipo padrão (string, boolean, number), precisamos informar qual o tipo de cada dado por meio de uma interface.
 
 ```tsx
 interface Repository {
@@ -263,9 +263,9 @@ interface Repository {
 }
 ```
 
-## Salvar novo repositório no estado
+## Salvar novo repositório
 
-Para salvar incluir o novo repositório buscado na lista de reposiórios, vamos armazenar ele num estado, também pelo 'useState()'.
+Para salvar incluir o novo repositório buscado na lista de reposiórios, vamos armazenar ele num estado. Nesse caso, o primeiro parâmetro é a lista de repositórios, o segundo é a função que executaremos para alterá-lo e dentro do 'useState()' é o estado inicial da lista de repositórios, ou seja, vazia.
 
 ```tsx
 const [repositories, setRepositories] = useState([]);
@@ -422,7 +422,7 @@ No nosso arquivo de rotas, vamos atualizar a rota de Repository para que ele rec
 <Route path="/repository/:repository+" component={Repository} />
 ```
 
-## Página: Repository
+# Página: Repository
 
 Vamos importar do 'React-Router-DOM' o 'useRouteMatch' que nos permite acessar os parâmetros da rota.
 
