@@ -14,6 +14,8 @@
 
 **Instalar React-Icons:** `yarn add react-icons`
 
+**Instalar Axios**: `yarn add axios`
+
 ## Limpar estrutura do Template
 
 Vamos fazer algumas alterações em arquivos do template que não vamos utilizar, ou que vamos recriar depois.
@@ -45,8 +47,8 @@ No arquivo index.html temos a div 'root' onde todo código React vai ser injetad
 No src temos o arquivo index.tsx que utiliza o para renderizar nossa aplicação dentro de um elemento da DOM, no caso a div 'root'.
 
 ```tsx
-import ReactDOM from "react-dom";
-document.getElementById("root");
+import ReactDOM from 'react-dom';
+document.getElementById('root');
 ```
 
 # App
@@ -96,7 +98,7 @@ Os arquivos .css no React, sempre acabam sendo globais e impactam toda a aplica�
 Aqui vamos criar um componente estilizado Title
 
 ```ts
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Title = styled.h1`
   font-size: 48px;
@@ -107,8 +109,8 @@ export const Title = styled.h1`
 E vamos importar ele no dashboard e aplicar em volta do nosso título:
 
 ```tsx
-import React from "react";
-import { Title } from "./styles";
+import React from 'react';
+import { Title } from './styles';
 
 const Dashboard: React.FC = () => {
   return <Title> Explore repositórios no Github</Title>;
@@ -126,7 +128,9 @@ import { createGlobalStyle } from "styled-components";
 import githubBackground from "../assets/github.svg";
 
 export default createGlobalStyle`
+```
 
+```css
 *{
     margin: 0;
     padding: 0;
@@ -178,4 +182,101 @@ Caso eu esteja usando o encadeamento de estilos, posso substituir o primeiro ele
       margin-top: 16px;
     }
 
+```
+
+# API Client
+
+Na pasta src, criar a pasta services e o arquivo 'api.ts'.
+Dentro da função create() do axios, vamos colocar a baseURL, que é o endereço que vai ser repetido em todas as requisições. Nessa aplicação vamos utilizar a api do Github: `https://api.github.com/`.
+
+```ts
+import axios from 'axios';
+
+const api = axios.create({
+  baseURL: 'https://api.github.com',
+});
+
+export default api;
+```
+
+Vamos importar a api em todas as páginas da nossa aplicação, nesse caso no Dashboard (página inicial) e Repository (página de listagem).
+
+# Página: Dashboard
+
+Agora criaremos uma função para a adição de novos repositórios (mais um item na lista). A lógica é a seguinte: Para a adiação de um novo repositório, precisamos:
+
+- Ter acesso ao valor que foi digitado dentro do input de busca
+- Consumir a API do Github
+- Salvar novo repositório no estado
+
+## Ter acesso ao valor que foi digitado dentro do input de busca
+
+Existem diversas formas de armazenar o valor do input, mas aqui usaremos o 'useState()'. A primeira variável é o estado em si, a segunda é uma função que usaremos quando quisermos alterá-lo, e dentro do 'useState()' é o estado inicial, ou seja, vazio.
+
+```tsx
+const [newRepo, setNewRepo] = useState('');
+```
+
+## Consumir a API do Github
+
+Para criar nossa busca de repositórios do Github, também usaremos o 'useState()'.
+
+```tsx
+const [repositories, setRepositories] = useState([]);
+```
+
+Agora no 'input', colocaremos o 'value' como 'newRepo', e o 'onChange' faremos um evento (e) que vai armazenar o valor do input. Vamos passar como parâmetro para a função 'setNewRepo()';
+
+```tsx
+<input
+  value={newRepo}
+  onChange={(e) => setNewRepo(e.target.value)}
+  type="text"
+  placeholder="Digite o nome do repositório"
+/>
+```
+
+No form, colocaremos um submit para acionar a função de adição de repositório quando o formulário form enviado.
+
+```tsx
+<Form onSubmit={handleAddRepository}>
+```
+
+A função que lida com a adição do novo repositório é a 'handleAddRepository()'. Como estamos chamando ela por meio de um submit do form, precisamos informar que não precisaremos ser redirecionados para outra página, evento padrão do html. Fazemos isso por meio do método 'FormEvent' do React, e colocando o evento como parâmtro da função. Dentro da função executaremos o 'preventDefault()' que impede o redirecionamento da página.
+
+```tsx
+function handleAddRepository(event: FormEvent<HTMLFormElement>): void {
+  event.preventDefault();
+}
+```
+
+Sempre que criamos um estado que não é do tipo padrão (string, boolean, numer), ou seja, é um array ou objeto, precisamos informar qual o tipo desse estado.
+
+```tsx
+interface Repository {
+  full_name: string;
+  description: string;
+  owner: {
+    login: string;
+    avatar_url: string;
+  };
+}
+```
+
+No final, a função 'handleAddRepository' vai ficar assim. Depois de adicionar o novo repositório nos repositórios existentes, chamamos a função setNewRepo() vazia para limpar o input de busca.
+
+```tsx
+async function handleAddRepository(
+  event: FormEvent<HTMLFormElement>
+): Promise<void> {
+  event.preventDefault();
+
+  const response = await api.get<Repository>(`repos/${newRepo}`);
+
+  const repository = response.data;
+
+  setRepositories([...repositories, repository]);
+
+  setNewRepo('');
+}
 ```
