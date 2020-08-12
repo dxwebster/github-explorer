@@ -372,3 +372,73 @@ export const Form = styled.form<FormProps>`
 
   }
 ```
+
+# Salvando no Local Storage
+
+Sempre que eu tiver uma mudança na variável 'repositories' eu vou salvar no Local Storage. Para fazer isso vamos utilizar o useEffect, que permite que disparemos uma função (primeiro parâmtro) sempre que uma variável mudar (segundo parâmetro).
+
+```tsx
+useEffect(() => {
+  localStorage.setItem(
+    '@GithubExplorer:repositories',
+    JSON.stringify(repositories)
+  );
+}, [repositories]);
+```
+
+Agora no meu 'useState' de repositorios, vamos incluir na listagem o que estiver salvo no local storage. dentro do 'useState' vamos incluir uma função que vai verificar no localStorage se existir alguma informação lá, retorna essa informação e inclui no estado inicial, se não existir, retorna um objeto vazio.
+
+```tsx
+const [repositories, setRepositories] = useState<Repository[]>(() => {
+  const storageRepositories = localStorage.getItem(
+    '@GithubExplorer:repositories'
+  );
+  if (storageRepositories) {
+    return JSON.parse(storageRepositories);
+  } else {
+    return [];
+  }
+});
+```
+
+# Navegando entre rotas
+
+Vamos importar o Link do React-Router-DOM, e substituir nossos <a> pelo Link. Para a rota vamos incluir de qual repositório esse link se refere
+
+```tsx
+import { Link } from 'react-router-dom';
+
+[...] // restante do código
+
+<Link
+  key={repository.full_name}
+  to={`/repositories/${repository.full_name}`}
+>
+```
+
+No nosso arquivo de rotas, vamos atualizar a rota de Repository para que ele reconheça a url correta do repositório selecionado. Com o sinal de +, tudo que vier depois da barra é o nome do repositório.
+
+```tsx
+<Route path="/repository/:repository+" component={Repository} />
+```
+
+## Página: Repository
+
+Vamos importar do 'React-Router-DOM' o 'useRouteMatch' que nos permite acessar os parâmetros da rota.
+
+```tsx
+import React from 'react';
+import { useRouteMatch } from 'react-router-dom';
+
+interface RepositoryParams {
+  repository: string;
+}
+
+const Repository: React.FC = () => {
+  const { params } = useRouteMatch<RepositoryParams>();
+
+  return <h1>Repository: {params.repository}</h1>;
+};
+
+export default Repository;
+```
