@@ -1,3 +1,10 @@
+## 📥 Executar esse projeto no seu computador
+
+- Clonar Repositório: `git clone https://github.com/dxwebster/Primeiro-Projeto-com-ReactJS`
+- Entrar na pasta? `cd Primeiro-Projeto-com-ReactJS` 
+- Instalar dependências: `yarn install`
+- Rodar Aplicação: `yarn start`
+
 ## 📚 Instalação e Configuração das Bibliotecas Front-End
 
 **Instalar Template de Typescript do React:** `create-react-app primeiro-projeto-react --template=typescript`
