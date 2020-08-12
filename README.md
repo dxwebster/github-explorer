@@ -203,7 +203,7 @@ Vamos importar a api em todas as páginas da nossa aplicação, nesse caso no Da
 
 # Página: Dashboard
 
-Agora criaremos uma função para a adição de novos repositórios (mais um item na lista). A lógica é a seguinte: Para a adiação de um novo repositório, precisamos:
+Agora criaremos as funções para busca de repositórios e adição deles na lista. A lógica será o seguinte:
 
 - Ter acesso ao valor que foi digitado dentro do input de busca
 - Consumir a API do Github
