@@ -217,14 +217,6 @@ Existem diversas formas de armazenar o valor do input, mas aqui usaremos o 'useS
 const [newRepo, setNewRepo] = useState('');
 ```
 
-## Consumir a API do Github
-
-Para criar nossa busca de repositórios do Github, também usaremos o 'useState()'.
-
-```tsx
-const [repositories, setRepositories] = useState([]);
-```
-
 Agora no 'input', colocaremos o 'value' como 'newRepo', e o 'onChange' faremos um evento (e) que vai armazenar o valor do input. Vamos passar como parâmetro para a função 'setNewRepo()';
 
 ```tsx
@@ -236,13 +228,13 @@ Agora no 'input', colocaremos o 'value' como 'newRepo', e o 'onChange' faremos u
 />
 ```
 
-No form, colocaremos um submit para acionar a função de adição de repositório quando o formulário form enviado.
+No form, colocaremos um submit para acionar a função de adição de repositório quando o formulário for enviado.
 
 ```tsx
 <Form onSubmit={handleAddRepository}>
 ```
 
-A função que lida com a adição do novo repositório é a 'handleAddRepository()'. Como estamos chamando ela por meio de um submit do form, precisamos informar que não precisaremos ser redirecionados para outra página, evento padrão do html. Fazemos isso por meio do método 'FormEvent' do React, e colocando o evento como parâmtro da função. Dentro da função executaremos o 'preventDefault()' que impede o redirecionamento da página.
+A função que lida com a adição do novo repositório é a 'handleAddRepository()'. Como estamos chamando ela por meio de um submit do form, precisamos informar que não precisaremos ser redirecionados para outra página (esse redirect é um evento padrão do html). Fazemos isso por meio do'FormEvent' do React, e colocando o evento como parâmtro da função. Dentro da função executaremos o 'preventDefault()' que impede o redirecionamento da página.
 
 ```tsx
 function handleAddRepository(event: FormEvent<HTMLFormElement>): void {
@@ -250,7 +242,15 @@ function handleAddRepository(event: FormEvent<HTMLFormElement>): void {
 }
 ```
 
-Sempre que criamos um estado que não é do tipo padrão (string, boolean, numer), ou seja, é um array ou objeto, precisamos informar qual o tipo desse estado.
+## Consumir a API do Github
+
+Dentro da função handleAddRepository(), teremos nossa api de busca de repositórios. Esse request irá retornar um objeto, pois queremos algumas informações do Repositório buscado (nome, descrição, etc).
+
+```tsx
+const response = await api.get<Repository>(`repos/${newRepo}`);
+```
+
+Como esse resultado é um objeto, ou seja, não é do tipo padrão (string, boolean, numer), precisamos informar qual o tipo dele por meio de uma interface.
 
 ```tsx
 interface Repository {
@@ -263,7 +263,15 @@ interface Repository {
 }
 ```
 
-No final, a função 'handleAddRepository' vai ficar assim. Depois de adicionar o novo repositório nos repositórios existentes, chamamos a função setNewRepo() vazia para limpar o input de busca.
+## Salvar novo repositório no estado
+
+Para salvar incluir o novo repositório buscado na lista de reposiórios, vamos armazenar ele num estado, também pelo 'useState()'.
+
+```tsx
+const [repositories, setRepositories] = useState([]);
+```
+
+A chamada a api, ficará dentro da função 'handleAddRepository'. O resultado vamos armazenar dentro de uma variável 'repository' e depois incluir ela no 'setRepositories()' com um spread operator. No final chamamos a função setNewRepo() vazia para limpar o input de busca.
 
 ```tsx
 async function handleAddRepository(
