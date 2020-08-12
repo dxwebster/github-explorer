@@ -234,7 +234,7 @@ No form, colocaremos um submit para acionar a função de adição de repositór
 <Form onSubmit={handleAddRepository}>
 ```
 
-A função que lida com a adição do novo repositório é a 'handleAddRepository()'. Como estamos chamando ela por meio de um submit do form, precisamos informar que não precisaremos ser redirecionados para outra página (esse redirect é um evento padrão do html). Fazemos isso por meio do'FormEvent' do React, e colocando o evento como parâmtro da função. Dentro da função executaremos o 'preventDefault()' que impede o redirecionamento da página.
+A função que lida com a adição do novo repositório é a 'handleAddRepository()'. Como estamos chamando ela por meio de um submit do form, precisamos informar que não precisaremos ser redirecionados para outra página (esse redirect é um evento padrão do html). Fazemos isso por meio do'FormEvent' do React, e colocando o evento como parâmtro da função. Dentro da função executaremos o 'preventDefault()' que impede o redirecionamento da página. Ele precisa ficar no começo da função.
 
 ```tsx
 function handleAddRepository(event: FormEvent<HTMLFormElement>): void {
@@ -287,4 +287,88 @@ async function handleAddRepository(
 
   setNewRepo('');
 }
+```
+
+# Lidando com Erros
+
+Precisamos agora incluir a lógica que vai tratar das seguintes ações de usuário:
+
+- Enviar o form com o input vazio
+- Buscar um repositório que não existe.
+
+Vamos criar um estado:
+
+```tsx
+const [inputError, setInputError] = useState('');
+```
+
+Para verificar se o input está vazio, vamos fazer um "if input vazio, retorna a mensagem de erro"
+
+```tsx
+if (!newRepo) {
+  setInputError('Digite o autor/nome do repositório');
+}
+```
+
+Para responder caso o usuário digitar um nome de repositório que não existe, vamos colocar todo o resto (chamada a api e inclusão do novo repositorio) dentro de um try e depois, limpar a mensagem de erro se der tudo certo e com o catch exibir a mensagemm de erro:
+
+```tsx
+try {
+  const response = await api.get<Repository>(`repos/${newRepo}`);
+
+  const repository = response.data;
+
+  setRepositories([...repositories, repository]);
+
+  setNewRepo('');
+
+  setInputError('');
+} catch (err) {
+  setInputError('Erro na busca por esse repositório');
+}
+```
+
+Vamos exibir essa mensagem de erro em um novo componente logo abaixo do formulário com um "if o inputError" está preenchida, aparece o error. Nesse formato de if o que vem depois do && só vai ser executado, se o que vem antes for satisfeito.
+
+```tsx
+{
+  inputError && <Error>{inputError}</Error>;
+}
+```
+
+## Estilização do Form quando der erro
+
+No nosso component estilizado `<Form />`, vamos incluir um parâmetro que vai estilizar o input caso de um erro por meio do hasError que retorna um booleano (true ou false).
+
+```tsx
+<Form hasError={!!inputError} onSubmit={handleAddRepository}>
+```
+
+Agora nos estilos, preciso informar que o component Form vai receber esse parâmetro hasError, por meio de uma interface.
+
+```ts
+interface FormProps {
+  hasError: boolean;
+}
+```
+
+Lá no estilo do 'Form', incluimos a tipagem 'FormProps', e dentro do 'input' usamos uma função que nos traz os parâmetros para que possamos incluir o css.
+
+```ts
+export const Form = styled.form<FormProps>`
+  margin-top: 40px;
+  max-width: 700px;
+  display: flex;
+
+  input {
+
+    [...]
+
+    ${(props) =>
+      props.hasError &&
+      css`
+        border-color: #c53030;
+      `}
+
+  }
 ```
