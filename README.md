@@ -5,6 +5,15 @@
 - Instalar dependências: `yarn install`
 - Rodar Aplicação: `yarn start`
 
+## Deploy no Heroku
+
+Depois de clonar o repositório
+- Logar no heroku `heroku login`
+- Criar aplicação: `heroku create github-explorer-app`
+- Adicionar o buildpack do React: mars/create-react-app
+- Vincular o github à aplicação do Heroku e dar "Deploy Branch"
+
+
 ## 📚 Instalação e Configuração das Bibliotecas Front-End
 
 **Instalar Template de Typescript do React:** `create-react-app primeiro-projeto-react --template=typescript`
