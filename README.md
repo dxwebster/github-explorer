@@ -1,6 +1,6 @@
 <h3 align=center>
 <img src="readme/example.gif" width=600><br>
-Demo Preview: https://github-explorer-appp.herokuapp.com/
+Acesse o Preview [aqui](https://github-explorer-appp.herokuapp.com/)
 <br>
 <br>
 </h3>
