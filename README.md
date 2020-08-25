@@ -1,6 +1,6 @@
 <h1 align=center> Github Explorer</h1>
 
-<p align=center> Aplicação que exibe uma listagem de repositórios do Github buscado pelo nome e os armazena no local storage do navegador.
+<p align=center> Aplicação que permite a busca por nome de repositórios do Github e armazena essa listagem no local storage do navegador.
 
 <h3 align=center>
 <img src="readme/example.gif" width=600><br>
