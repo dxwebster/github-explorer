@@ -19,10 +19,13 @@
 
 ## 🚩 Deploy no Heroku
 
-Depois de clonar o repositório
+Depois de clonar o repositório, com a CLI do Heroku já instalada na máquina
 
-- Logar no heroku `heroku login`
+- Logar no heroku: `heroku login`
 - Criar aplicação: `heroku create github-explorer-app`
+
+Acessar o Dashboard do Heroku no navegador:
+
 - Adicionar o buildpack do React: `mars/create-react-app`
 - Vincular o github à aplicação do Heroku e dar "Deploy Branch"
 
