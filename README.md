@@ -1,21 +1,27 @@
-
+<h3 align=center>
+<img src="readme/example.gif" width=600><br>
 Demo Preview: https://github-explorer-appp.herokuapp.com/
+<br>
+<br>
+</h3>
 
 ## 📥 Executar esse projeto no seu computador
 
 - Clonar Repositório: `git clone https://github.com/dxwebster/Primeiro-Projeto-com-ReactJS`
-- Entrar na pasta? `cd Primeiro-Projeto-com-ReactJS` 
+- Entrar na pasta? `cd Primeiro-Projeto-com-ReactJS`
 - Instalar dependências: `yarn install`
 - Rodar Aplicação: `yarn start`
 
-## Deploy no Heroku
+## 🚩 Deploy no Heroku
 
 Depois de clonar o repositório
+
 - Logar no heroku `heroku login`
 - Criar aplicação: `heroku create github-explorer-app`
 - Adicionar o buildpack do React: mars/create-react-app
 - Vincular o github à aplicação do Heroku e dar "Deploy Branch"
 
+# Como criar esse projeto do zero
 
 ## 📚 Instalação e Configuração das Bibliotecas Front-End
 
@@ -48,9 +54,9 @@ Vamos fazer algumas alterações em arquivos do template que não vamos utilizar
 - Excluir o setupTests.ts
 - Abrir os arquivos 'index.tsx', App.tsx' e 'index.html' e remover as linhas que chamavam os arquivos que excluímos
 
-# React-Scripts
+## React-Scripts
 
-O React-Scripts é um dependência que já vem instalada com o React-App e dentro dela já vem tudo configurado do Babel, Webpack (já tem importação de imagens e estilos também ).Não vamos precisar configurar isso na mão.
+O React-Scripts é um dependência que já vem instalada com o React-App e dentro dela já vem tudo configurado do Babel, Webpack (já tem importação de imagens e estilos também ). Não vamos precisar configurar isso na mão.
 
 "scripts": {
 "start": "react-scripts start",
@@ -59,7 +65,7 @@ O React-Scripts é um dependência que já vem instalada com o React-App e dentr
 "eject": "react-scripts eject"
 },
 
-# React-DOM
+## React-DOM
 
 No arquivo index.html temos a div 'root' onde todo código React vai ser injetado dentro dessa div.
 
@@ -70,7 +76,7 @@ import ReactDOM from 'react-dom';
 document.getElementById('root');
 ```
 
-# App
+## App
 
 O App.tsx é o arquivo principal da aplicação.
 
@@ -91,7 +97,7 @@ const App: React.FC = () => <Routes />;
 
 Lembrando que componentes, sempre escrevemos com letra maiúscula.
 
-# Rotas
+## Rotas
 
 Tudo no react são componentes até as rotas.
 No arquivo de rotas, vamos utilizar um component padrão do React chamado Route. Ele tem algumas propriedades (para visualizar basta clicar na tag do componente e pressionar ctrl + espaço).
@@ -110,7 +116,7 @@ Utilizando o React-Router-DOM, temos alguns tipos de rotas. Nessa aplicação us
 
 Além disso, nossas rotas precisam ter o Switch que permite que apenas uma das rotas seja exibida, não as duas ao mesmo tempo.
 
-# Estilos
+## Estilos
 
 Os arquivos .css no React, sempre acabam sendo globais e impactam toda a aplicação. Para resolver isso temos o Styled Components. Ele vai isolar o css para seu respectivo component, assim esse estilo não vai afetar no restante da aplicação (a menos que seja necessário). O estilo agora do componente será .ts e agora vamos criar componentes estilizados.
 
@@ -178,7 +184,7 @@ button{
 `;
 ```
 
-# CSS Tips
+### CSS Tips
 
 Quando eu tenho um elemento precedido do mesmo elemento (ex: listas com `<li>` ou `<a>`) e eu quiser colocar um espaçamento entre eles, faço da seguinte forma:
 
@@ -203,7 +209,7 @@ Caso eu esteja usando o encadeamento de estilos, posso substituir o primeiro ele
 
 ```
 
-# API Client
+## API Client
 
 Na pasta src, criar a pasta services e o arquivo 'api.ts'.
 Dentro da função create() do axios, vamos colocar a baseURL, que é o endereço que vai ser repetido em todas as requisições. Nessa aplicação vamos utilizar a api do Github: `https://api.github.com/`.
@@ -220,7 +226,7 @@ export default api;
 
 Vamos importar a api em todas as páginas da nossa aplicação, nesse caso no Dashboard (página inicial) e Repository (página de listagem).
 
-# Página: Dashboard
+## Página: Dashboard
 
 Agora criaremos as funções para busca de repositórios e adição deles na lista. A lógica será o seguinte:
 
@@ -228,7 +234,7 @@ Agora criaremos as funções para busca de repositórios e adição deles na lis
 - Consumir a API do Github
 - Salvar novo repositório
 
-## Acessar o valor que foi digitado dentro do input de busca
+### Acessar o valor que foi digitado dentro do input de busca
 
 Existem diversas formas de armazenar o valor do input, mas aqui usaremos o 'useState()'.O primeiro parâmetro é o novo repositório, o segundo parâmetro é uma função que usaremos quando quisermos alterá-lo, e dentro do 'useState()' é o estado inicial, ou seja, vazio pois não temos nenhum novo repositório.
 
@@ -308,7 +314,7 @@ async function handleAddRepository(
 }
 ```
 
-# Lidando com Erros
+## Lidando com Erros
 
 Precisamos agora incluir a lógica que vai tratar das seguintes ações de usuário:
 
@@ -392,7 +398,7 @@ export const Form = styled.form<FormProps>`
   }
 ```
 
-# Salvando no Local Storage
+## Salvando no Local Storage
 
 Sempre que eu tiver uma mudança na variável 'repositories' eu vou salvar no Local Storage. Para fazer isso vamos utilizar o useEffect, que permite que disparemos uma função (primeiro parâmtro) sempre que uma variável mudar (segundo parâmetro).
 
@@ -420,7 +426,7 @@ const [repositories, setRepositories] = useState<Repository[]>(() => {
 });
 ```
 
-# Navegando entre rotas
+## Navegando entre rotas
 
 Vamos importar o Link do React-Router-DOM, e substituir nossos <a> pelo Link. Para a rota vamos incluir de qual repositório esse link se refere
 
@@ -441,7 +447,7 @@ No nosso arquivo de rotas, vamos atualizar a rota de Repository para que ele rec
 <Route path="/repository/:repository+" component={Repository} />
 ```
 
-# Página: Repository
+## Página: Repository
 
 Vamos importar do 'React-Router-DOM' o 'useRouteMatch' que nos permite acessar os parâmetros da rota.
 
