@@ -1,4 +1,4 @@
-<h1 align=center> Github Exploorer</h1>
+<h1 align=center> Github Explorer</h1>
 
 <p align=center> Aplicação que exibe uma listagem de repositórios do Github buscado pelo nome e os armazena no local storage do navegador.
 
