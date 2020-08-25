@@ -1,3 +1,6 @@
+
+Demo Preview: https://github-explorer-appp.herokuapp.com/
+
 ## 📥 Executar esse projeto no seu computador
 
 - Clonar Repositório: `git clone https://github.com/dxwebster/Primeiro-Projeto-com-ReactJS`
