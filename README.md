@@ -1,3 +1,7 @@
+<h1 align=center> Github Exploorer</h1>
+
+<p align=center> Aplicação que exibe uma listagem de repositórios do Github buscado pelo nome e os armazena no local storage do navegador.
+
 <h3 align=center>
 <img src="readme/example.gif" width=600><br>
 
@@ -22,7 +26,7 @@ Depois de clonar o repositório
 - Adicionar o buildpack do React: mars/create-react-app
 - Vincular o github à aplicação do Heroku e dar "Deploy Branch"
 
-# Como criar esse projeto do zero
+<h1 align=center> Como criar esse projeto do zero</h1>
 
 ## 📚 Instalação e Configuração das Bibliotecas Front-End
 
