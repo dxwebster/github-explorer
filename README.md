@@ -1,8 +1,9 @@
 <h3 align=center>
 <img src="readme/example.gif" width=600><br>
-Acesse o Preview [aqui](https://github-explorer-appp.herokuapp.com/)
-<br>
-<br>
+
+💻 **Acesse a aplicação [aqui](https://github-explorer-appp.herokuapp.com/)**
+<br><br>
+
 </h3>
 
 ## 📥 Executar esse projeto no seu computador
