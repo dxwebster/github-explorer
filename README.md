@@ -13,7 +13,7 @@
 ## 📥 Executar esse projeto no seu computador
 
 - Clonar Repositório: `git clone https://github.com/dxwebster/Primeiro-Projeto-com-ReactJS`
-- Entrar na pasta? `cd Primeiro-Projeto-com-ReactJS`
+- Entrar na pasta: `cd Github-Explorer-App`
 - Instalar dependências: `yarn install`
 - Rodar Aplicação: `yarn start`
 
@@ -23,7 +23,7 @@ Depois de clonar o repositório
 
 - Logar no heroku `heroku login`
 - Criar aplicação: `heroku create github-explorer-app`
-- Adicionar o buildpack do React: mars/create-react-app
+- Adicionar o buildpack do React: `mars/create-react-app`
 - Vincular o github à aplicação do Heroku e dar "Deploy Branch"
 
 <h1 align=center> Como criar esse projeto do zero</h1>
